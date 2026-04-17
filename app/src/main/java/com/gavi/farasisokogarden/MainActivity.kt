@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ButtonBarLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,27 @@ class MainActivity : AppCompatActivity() {
             startActivity(signinIntent)
 
         }
+
+//        about us intent
+        val about = findViewById<Button>(R.id.about)
+
+        about.setOnClickListener {
+
+            val aboutIntent = Intent(applicationContext, About::class.java)
+            startActivity(aboutIntent)
+
+        }
+
+//       speech intent
+        val speech = findViewById<Button>(R.id.btnSpeak)
+         speech.setOnClickListener {
+
+             val speechIntent = Intent(applicationContext, SpeechToTextActivity::class.java)
+             startActivity(speechIntent)
+
+         }
+
+
 
 //        fetch progress bar and recycler view by their ids
         val progressBar = findViewById<ProgressBar>(R.id.progressbar)
