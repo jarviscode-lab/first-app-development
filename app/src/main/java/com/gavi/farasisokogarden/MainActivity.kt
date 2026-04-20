@@ -4,77 +4,69 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.ButtonBarLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SearchView
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Enable full screen layout
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        // Handle system UI spacing (status bar, navigation bar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-//        sign up intent
-        val signup=findViewById<Button>(R.id.signup)
+        //  BUTTONS
 
+        // Sign Up Button / intent
+        val signup = findViewById<Button>(R.id.signup)
         signup.setOnClickListener {
-            val signupIntent= Intent(applicationContext, SignUp::class.java)
-
-            startActivity(signupIntent)
-
+            startActivity(Intent(applicationContext, SignUp::class.java))
         }
 
-//        sign in intent
-        val signin=findViewById<Button>(R.id.signin)
-
+        // Sign In Button
+        val signin = findViewById<Button>(R.id.signin)
         signin.setOnClickListener {
-            val signinIntent = Intent(applicationContext, SignIn::class.java)
-
-            startActivity(signinIntent)
-
+            startActivity(Intent(applicationContext, SignIn::class.java))
         }
 
-//        about us intent
+        // About Button
         val about = findViewById<Button>(R.id.about)
-
         about.setOnClickListener {
-
-            val aboutIntent = Intent(applicationContext, About::class.java)
-            startActivity(aboutIntent)
-
+            startActivity(Intent(applicationContext, About::class.java))
         }
 
-//       speech intent
+        // Speech-to-Text Button
         val speech = findViewById<Button>(R.id.btnSpeak)
-         speech.setOnClickListener {
+        speech.setOnClickListener {
+            startActivity(Intent(applicationContext, SpeechToTextActivity::class.java))
+        }
 
-             val speechIntent = Intent(applicationContext, SpeechToTextActivity::class.java)
-             startActivity(speechIntent)
+        // DATA LOADING
 
-         }
-
-
-
-//        fetch progress bar and recycler view by their ids
         val progressBar = findViewById<ProgressBar>(R.id.progressbar)
-        val  recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
 
+        // API Endpoint
         val api = "https://gavi.alwaysdata.net/api/getproductsdetails"
 
+        // Helper class to fetch and display products
         val helper = ApiHelper(applicationContext)
-        helper.loadProducts(api,recyclerView,progressBar) //progressbar shows the loader
+        helper.loadProducts(api, recyclerView, progressBar)
 
-        Toast.makeText(this, "Signing up....",Toast.LENGTH_SHORT).show()
-
+        // Demo Toast (can be changed later)
+        Toast.makeText(this, "Welcome to Fruitopia", Toast.LENGTH_SHORT).show()
     }
 }
